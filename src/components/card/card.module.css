@@ -1,0 +1,41 @@
+.workflowCard {
+  box-shadow: 0 2px 18px rgba(0,0,0,.1);
+  padding: 20px;
+  position: relative;
+  width: 240px;
+  max-height: 160px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 400;
+  height: 90px;
+  overflow: hidden;
+}
+
+.footer {
+  font-size: 14px;
+  font-weight: 400;
+  display: grid;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 10px;
+  grid-template-columns: auto auto auto;
+}
+
+.statusIcon {
+  height: 18px;
+  background-color: #f2f2f2;
+  padding: 6px 10px 10px 10px;
+  text-align: center;
+  border-radius: 20px;
+  width: 18px;
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
