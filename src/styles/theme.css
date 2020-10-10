@@ -5,4 +5,32 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+input {
+  height: 25px;
+  margin: 10px 0;
+  padding: 5px 10px;
+  width: 94%;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 1px solid lightgrey;
+}
+
+button {
+  outline: 0;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px 0;
+  height: 35px;
+  width: 100%;
+  padding: 5px 10px;
+  border: 0px solid lightgrey;
+  box-shadow: 0 0px 3px lightgrey;
+  text-align: center;
+  color: #00ACC1;
+  background: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
