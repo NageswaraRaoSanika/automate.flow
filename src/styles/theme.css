@@ -18,7 +18,7 @@ input {
   border: 1px solid lightgrey;
 }
 
-button {
+button, select {
   outline: 0;
   font-size: 14px;
   font-weight: 600;
@@ -33,4 +33,9 @@ button {
   background: white;
   border-radius: 5px;
   cursor: pointer;
+}
+
+h2 {
+  font-weight: 400;
+  color: #00ACC1;
 }

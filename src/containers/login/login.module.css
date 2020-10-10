@@ -1,6 +1,6 @@
 .landingContainer {
   width: 100vw;
-  margin: 150px 35%;
+  margin: 120px 35%;
 }
 
 .loginSection, .signupSection {
@@ -9,10 +9,6 @@
   box-shadow: 0 2px 18px rgba(0,0,0,.1);
   width: 350px;
   border-radius: 5px;
-}
-
-h2 {
-  font-weight: 400;
 }
 
 .label {

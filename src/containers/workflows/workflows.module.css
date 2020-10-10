@@ -1,0 +1,14 @@
+.workflowsContainer {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-gap: 20px;
+}
+
+.workflows {
+  padding: 10px 80px;
+  display: grid;
+  overflow-y:auto;
+  height: 620px;
+  grid-template-columns: auto auto auto;
+  grid-gap: 20px;
+}
