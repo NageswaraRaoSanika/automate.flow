@@ -91,7 +91,7 @@ const Workflow = (props: Props) => {
 
   return (
     <Page>
-      <a href="/"> &#10094; Back to Workflows</a>
+      <a className={styles.goBack} href="/automate.flow"> &#10094; Back to Workflows</a>
       {save && <div className={styles.message}>
         Workflow Saved Successfully!
       </div>}
@@ -103,7 +103,7 @@ const Workflow = (props: Props) => {
             Save
           </button>
           {
-            nodes.filter(n => n.status === 'Completed').length === nodes.length ?
+            (nodes.length !== 0 && nodes.filter(n => n.status === 'Completed').length === nodes.length) ?
               (<button type="button" onClick={() => shuffleNodes()} className={styles.shuffle}>
                 &#8617;
                 Shuffle

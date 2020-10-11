@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-
+import { useHistory } from 'react-router-dom';
 import FilterWorkflows from '../../components/filter-workflows/filter.component';
 import Page from '../../components/page/page.component';
 import Card from '../../components/card/card.component';
@@ -60,7 +60,7 @@ const Workflows = (props: Props) => {
       return 'Pending';
     }
   }
-
+  const history = useHistory();
   return (
     <Page>
       <Modal>
@@ -98,15 +98,13 @@ const Workflows = (props: Props) => {
         <div className={styles.workflows}>
           {
             data.length > 0 ? data.map((d) => (
-              <div key={d.id}>
-                <a href={`/workflow/${d.id}`}>
-                  <Card
-                    title={d.name}
-                    status={getStatus(d)}
-                    description={renderDescription(d)}
-                    updateStaus={() => null}
-                  />
-                </a>
+              <div className={styles.workflowClickWrapper} onClick={() =>history.push(`/automate.flow/workflow/${d.id}`)} key={d.id}>
+                <Card
+                  title={d.name}
+                  status={getStatus(d)}
+                  description={renderDescription(d)}
+                  updateStaus={() => null}
+                />
               </div>
             )) : 'No Workflows found'
           }
