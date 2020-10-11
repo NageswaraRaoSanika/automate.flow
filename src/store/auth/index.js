@@ -2,12 +2,16 @@ import {
   LOGIN_REQUEST,
   LOGIN_REQUEST_SUCCESS,
   LOGIN_REQUEST_FAIL,
+  SIGNUP_REQUEST,
+  SIGNUP_REQUEST_FAIL,
+  SIGNUP_REQUEST_SUCCESS,
 } from './types';
 
 const initialStore = {
   error: null,
   loading: false,
-  data: null,
+  loginMessage: '',
+  signUpMessage: '',
 };
 
 const authStore = (state = initialStore, action) => {
@@ -16,7 +20,8 @@ const authStore = (state = initialStore, action) => {
       return {
         ...state,
         loading: true,
-        data: null,
+        loginMessageata: '',
+        signUpMessage: '',
         error: null,
       };
 
@@ -25,13 +30,38 @@ const authStore = (state = initialStore, action) => {
         ...state,
         error: null,
         loading: false,
-        data: action.data,
+        loginMessage: action.data,
       };
 
     case LOGIN_REQUEST_FAIL:
       return {
         ...state,
-        data: null,
+        loginMessage: '',
+        error: action.data,
+        loading: false,
+      };
+  
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        signUpMessage: '',
+        loginMessage: '',
+        error: null,
+      };
+
+    case SIGNUP_REQUEST_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        loading: false,
+        signUpMessage: action.data,
+      };
+
+    case SIGNUP_REQUEST_FAIL:
+      return {
+        ...state,
+        signUpMessage: '',
         error: action.data,
         loading: false,
       };
