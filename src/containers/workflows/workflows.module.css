@@ -12,3 +12,9 @@
   grid-template-columns: auto auto auto;
   grid-gap: 20px;
 }
+
+.createWorkflow {
+  background: #00ACC1;
+  margin-bottom: 20px;
+  color: white;
+}

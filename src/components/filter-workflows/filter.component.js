@@ -9,7 +9,7 @@ const FilterWorkflows = (props: Props) => {
   return (
     <div>
       <div className={styles.label}>Search</div>
-      <input placeholder="Search by Workflow name" className={styles.search} type="text" />
+      <input placeholder="Search by workflow name" className={styles.search} type="text" />
       <div className={styles.label}>Filter</div>
       <select>
         <option>All</option>
