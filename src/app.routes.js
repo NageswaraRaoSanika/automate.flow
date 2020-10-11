@@ -18,7 +18,7 @@ const AppRoutes = () => {
       <Router>
         <Switch>
           <Route
-            path="/"
+            path="/automate.flow"
             exact={true}
             render={() => {
               if (user !== null) {
@@ -29,7 +29,7 @@ const AppRoutes = () => {
             }}
           />
           <Route
-            path="/workflow/:id"
+            path="/automate.flow/workflow/:id"
             exact={true}
             render={(props) => {
               if (user !== null) {
