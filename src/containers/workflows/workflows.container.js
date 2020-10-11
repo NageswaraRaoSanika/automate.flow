@@ -32,6 +32,35 @@ const Workflows = (props: Props) => {
     close();
   }
 
+  const renderDescription = (workflow) => {
+    const { nodes = [] } = workflow;
+    const totalNodes = nodes.length;
+    const pending = nodes.filter(n => n.status === 'Pending').length;
+    const inProgress = nodes.filter(n => n.status === 'InProgress').length;
+    const completed = nodes.filter(n => n.status === 'Completed').length;
+
+    return (
+      <>
+        <div>Total Nodes: {totalNodes}</div>
+        <small>Pending: {pending}</small><br />
+        <small>InProgress: {inProgress}</small><br />
+        <small>Completed: {completed}</small>
+      </>
+    )
+  };
+
+  const getStatus = (workflow) => {
+    const { nodes = [] } = workflow;
+    const totalNodes = nodes.length;
+    const completed = nodes.filter(n => n.status === 'Completed').length;
+
+    if (totalNodes > 0 && completed === totalNodes) {
+      return 'Completed';
+    } else {
+      return 'Pending';
+    }
+  }
+
   return (
     <Page>
       <Modal>
@@ -54,8 +83,16 @@ const Workflows = (props: Props) => {
             + Create New Workflow
           </button>
           <FilterWorkflows
-           filterByName={name => name === '' ? setData(Object.values(workflows)) : setData(Object.values(workflows).filter(d => d.name.indexOf(name) > -1))}
-           filterByState={state => state === '' ? setData(Object.values(workflows)) : setData(Object.values(workflows).filter(d => d.status === state))}
+            filterByName={
+              (name) => name === ''
+                ? setData(Object.values(workflows))
+                : setData(Object.values(workflows).filter(d => d.name.indexOf(name) > -1))
+            }
+            filterByState={
+              (state) => state === ''
+                ? setData(Object.values(workflows))
+                : setData(Object.values(workflows).filter(d => getStatus(d) === state))
+            }
           />
         </div>
         <div className={styles.workflows}>
@@ -65,8 +102,9 @@ const Workflows = (props: Props) => {
                 <a href={`/workflow/${d.id}`}>
                   <Card
                     title={d.name}
-                    status={d.status}
-                    description={`${d.nodes.length} Nodes`}
+                    status={getStatus(d)}
+                    description={renderDescription(d)}
+                    updateStaus={() => null}
                   />
                 </a>
               </div>

@@ -26,3 +26,16 @@
 .delete {
   background: red;
 }
+
+.message {
+  background: green;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 300px;
+  left: 45%;
+  position: absolute;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
