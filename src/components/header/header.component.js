@@ -22,7 +22,7 @@ const Header = (props: Props) => {
           <a href="#profile" className={styles.username}>
             <UserIcon /> {user?.name}
           </a>
-          <a onClick={() => logout()} href="/" className={styles.logout}>
+          <a onClick={() => logout()} href="/automate.flow" className={styles.logout}>
             Logout
         </a>
         </div>)
