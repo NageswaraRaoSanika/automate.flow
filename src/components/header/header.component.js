@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlowIcon, UserIcon } from '../icons/icon.component';
+import { checkAuth, logout } from '../../store/auth/actions';
 
 import styles from './header.module.css';
 
@@ -8,20 +9,24 @@ type Props = {
 };
 
 const Header = (props: Props) => {
+  const user = checkAuth();
   return (
     <div className={styles.navbar}>
       <div className={styles.icon}>
         <FlowIcon />
         automate.flow
       </div>
-      <div className={styles.navlinks}>
-        <a href="#profile" className={styles.username}>
-          <UserIcon/> Nagesh Sanika
+      {
+        user &&
+        (<div className={styles.navlinks}>
+          <a href="#profile" className={styles.username}>
+            <UserIcon /> {user?.name}
+          </a>
+          <a onClick={() => logout()} href="/" className={styles.logout}>
+            Logout
         </a>
-        <a href="#logout" className={styles.logout}>
-          Logout
-        </a>
-      </div>
+        </div>)
+      }
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {
   getUserByEmailAndPassword,
   createUserSession,
   getAuthUser,
+  destroyUserSession,
 } from '../../api';
 
 import {
@@ -38,5 +39,5 @@ export const signUpUser = (payload) => (dispatch) => {
 
 export const checkAuth = () => getAuthUser();
 
-export const logout = (token) => (dispatch) => null;
+export const logout = () => destroyUserSession();
 
