@@ -102,10 +102,13 @@ const Workflow = (props: Props) => {
             &#10003;
             Save
           </button>
-          <button type="button" onClick={() => shuffleNodes()} className={styles.shuffle}>
-            &#8617;
-            Shuffle
-          </button>
+          {
+            nodes.filter(n => n.status === 'Completed').length === nodes.length ?
+              (<button type="button" onClick={() => shuffleNodes()} className={styles.shuffle}>
+                &#8617;
+                Shuffle
+              </button>) : null
+          }
           <button onClick={() => addNode()} type="button" className={styles.add}>
             &#9783;
             Add Node
