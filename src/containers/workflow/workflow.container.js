@@ -10,13 +10,14 @@ type Props = {
 }
 
 const Workflow = (props: Props) => {
-  const { match : { params : { id }} } = props;
+  const { match: { params: { id } } } = props;
   const { workflows } = useSelector((store) => ({
     workflows: store.workflowsStore.workflows,
   }), shallowEqual);
   const dispatch = useDispatch();
 
   const [nodes, setNodes] = useState([]);
+  const [save, setSave] = useState(false);
 
   useEffect(() => {
     if (Object.values(workflows).length === 0) {
@@ -34,7 +35,7 @@ const Workflow = (props: Props) => {
     const increment = nodes.length + 1;
     const id = `Node ${increment}`;
     const status = 'Pending';
-    const node = {id, status};
+    const node = { id, status };
     setNodes([...nodes, node]);
   };
 
@@ -51,11 +52,11 @@ const Workflow = (props: Props) => {
     let tempValue = null;
     let randomIndex = 0;
     while (0 !== index) {
-        randomIndex = Math.floor(Math.random() * index);
-        index -= 1;
-        tempValue = newNodes[index];
-        newNodes[index] = newNodes[randomIndex];
-        newNodes[randomIndex] = tempValue;
+      randomIndex = Math.floor(Math.random() * index);
+      index -= 1;
+      tempValue = newNodes[index];
+      newNodes[index] = newNodes[randomIndex];
+      newNodes[randomIndex] = tempValue;
     }
     setNodes(newNodes);
   };
@@ -64,37 +65,64 @@ const Workflow = (props: Props) => {
     const newWorkflows = { ...workflows };
     newWorkflows[id].nodes = nodes;
     dispatch(updateWorkflow(newWorkflows));
-  }
+    setSave(true);
+    setTimeout(() => setSave(false), 3000);
+  };
+
+  const setStatus = async (node, status, index) => {
+    const newStatus = () => {
+      if (status === 'Pending') {
+        return 'InProgress';
+      }
+
+      if (status === 'InProgress') {
+        return 'Completed'
+      }
+
+      if (status === 'Completed') {
+        return 'Pending'
+      }
+    };
+
+    const newNodes = [...nodes];
+    newNodes[index] = { ...newNodes[index], status: newStatus() }
+    setNodes(newNodes);
+  };
 
   return (
     <Page>
       <a href="/"> &#10094; Back to Workflows</a>
+      {save && <div className={styles.message}>
+        Workflow Saved Successfully!
+      </div>}
       <h2>{name}</h2>
       <div className={styles.workflowContainer}>
         <div>
           <button onClick={() => saveWorkflow()} type="button" className={styles.add}>
-            &#10003; 
+            &#10003;
             Save
           </button>
           <button type="button" onClick={() => shuffleNodes()} className={styles.shuffle}>
-            &#8617; 
+            &#8617;
             Shuffle
           </button>
           <button onClick={() => addNode()} type="button" className={styles.add}>
-            &#9783; 
+            &#9783;
             Add Node
           </button>
           <button onClick={() => deleteNode()} type="button" className={styles.delete}>
-            &#10005; 
+            &#10005;
             Delete
           </button>
         </div>
         <div className={styles.nodes}>
           {
-            nodes.length > 0 ? nodes.map((d) => (
+            nodes.length > 0 ? nodes.map((d, i) => (
               <Card
                 title={d.id}
+                key={d.id}
                 status={d.status}
+                updateStaus={(status) => setStatus(d, status, i)}
               />
             )) : 'No nodes found'
           }
