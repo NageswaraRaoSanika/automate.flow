@@ -1,0 +1,28 @@
+.workflowContainer {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-gap: 20px;
+}
+
+.nodes {
+  padding: 10px 80px;
+  display: grid;
+  overflow-y:auto;
+  max-height: 620px;
+  grid-template-columns: auto auto auto;
+  grid-gap: 20px;
+}
+
+.shuffle, .add, .delete {
+  background: #00ACC1;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.add {
+  background: green;
+}
+
+.delete {
+  background: red;
+}

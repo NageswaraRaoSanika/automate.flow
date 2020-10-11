@@ -4,7 +4,7 @@ const CURRENT_USER = "flow.user";
 export const addUser = (user) => {
   const userData = {
     ...user,
-    workflows: []
+    workflows: {},
   };
   const users = JSON.parse(localStorage.getItem(STORAGE_NAME));
   if (users === null ) {
@@ -40,11 +40,13 @@ export const isUserExists = (email) => {
 }
 
 export const getUserByEmailAndPassword = (user) => {
-  const users = JSON.parse(localStorage.getItem(STORAGE_NAME));
+  const users = JSON.parse(localStorage.getItem(STORAGE_NAME)) || [];
   return  users.filter((u) => u.email === user.email && u.password === user.password);
 }
 
 export const createUserSession = (user) => {
+  delete user.workflows;
+  delete user.password;
   localStorage.setItem(CURRENT_USER, JSON.stringify(user));
 }
 
@@ -55,3 +57,47 @@ export const destroyUserSession = () => {
 export const getAuthUser = () => {
   return JSON.parse(localStorage.getItem(CURRENT_USER));
 }
+
+const getCurrentUserData = () => {
+  const users = JSON.parse(localStorage.getItem(STORAGE_NAME));
+  const [user] = users.filter((u) => u.email === getAuthUser().email);
+  return user;
+}
+
+const updateCurrentUserData = (data) => {
+  const users = JSON.parse(localStorage.getItem(STORAGE_NAME));
+  const updatedUsers = users.map((u) => {
+    if (u.email === getAuthUser().email) {
+      return data;
+    }
+    else {
+      return u;
+    }
+  });
+  localStorage.setItem(STORAGE_NAME, JSON.stringify(updatedUsers));
+  return updatedUsers;
+}
+
+export const getWorkflows = () => getCurrentUserData().workflows;
+
+export const addWorkflow = (name) => {
+  const user = getCurrentUserData();
+  const key = new Date().getTime();
+  user.workflows = {
+    ...user.workflows,
+    [key]: {
+      name,
+      status: 'Pending',
+      nodes: [],
+      id: key,
+    },
+  };
+  updateCurrentUserData(user);
+  return user.workflows;
+}
+
+export const updateWorkflows = (workflows) => {
+  const user = getCurrentUserData();
+  updateCurrentUserData({...user, workflows});
+  return workflows;
+};
