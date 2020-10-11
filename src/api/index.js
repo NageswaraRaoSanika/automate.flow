@@ -1,4 +1,5 @@
 const STORAGE_NAME = "automate.flow";
+const CURRENT_USER = "flow.user";
 
 export const addUser = (user) => {
   const userData = {
@@ -38,10 +39,19 @@ export const isUserExists = (email) => {
   return false;
 }
 
-export const createUserSession = () => {
+export const getUserByEmailAndPassword = (user) => {
+  const users = JSON.parse(localStorage.getItem(STORAGE_NAME));
+  return  users.filter((u) => u.email === user.email && u.password === user.password);
+}
 
+export const createUserSession = (user) => {
+  localStorage.setItem(CURRENT_USER, JSON.stringify(user));
 }
 
 export const destroyUserSession = () => {
+  localStorage.removeItem(CURRENT_USER);
+}
 
+export const getAuthUser = () => {
+  return JSON.parse(localStorage.getItem(CURRENT_USER));
 }
